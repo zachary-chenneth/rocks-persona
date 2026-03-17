@@ -91,7 +91,7 @@ margin: 0;                     /* Remove default margin */
     flex-direction: column;
     gap: 1%;
     margin-top:0;
-    margin-bottom: 5%;
+    margin-bottom: 1%;
     flex-grow: 1;
 }
 #question{
@@ -177,7 +177,12 @@ button:hover {
 
 
 
-
+#copyright {
+    font-size: 14px;
+    font-weight: 600;
+    margin-top: auto;      /* --- pushes it to bottom */
+    padding-bottom: 0%;    /* --- small space above trim */
+}
 
 
 
@@ -206,6 +211,9 @@ button:hover {
   <div id="question"></div>
   <div id="answers"></div>
 </div>
+
+<div id="copyright">@Copyright 2026 Zack Chen - Baetheon Technologies</div>
+
 </div>
 </div>
 
@@ -354,6 +362,7 @@ P:0
 /* question text, image, answers */
 /* ----------------------------- */
 function showQuestion(){
+document.getElementById("copyright").style.display = "block"
 let q = questions[currentQuestion]
 document.getElementById("question-number").innerText = "Q" + (currentQuestion+1) + "/12"
 
@@ -396,7 +405,7 @@ answersDiv.appendChild(btn)
 /* ----------------------------- */
 function showResult(){
 let result = ""
-
+document.getElementById("copyright").style.display = "none"
 result += scores.I > scores.E ? "I" : "E"	/* calculate score*/
 result += scores.N > scores.S ? "N" : "S"
 result += scores.T > scores.F ? "T" : "F"
