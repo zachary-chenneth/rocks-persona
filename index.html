@@ -415,7 +415,7 @@ let rockTypes = {				/* determine rock*/
 INTJ: "GEODE", INTP: "MOON ROCK", ENTJ: "METAL", ENTP: "GLASS",
 INFJ: "PEARL", INFP: "JADE", ENFJ: "GOLD", ENFP: "BOULDER",
 ISTJ: "OBSIDIAN", ISFJ: "CRYSTAL", ESTJ: "DIAMOND", ESFJ: "MARBLE",
-ISTP: "CLAY", ISFP: "LIMESTONE", ESTP: "CLAY", ESFP: "METEORITE"
+ISTP: "CLAY", ISFP: "LIMESTONE", ESTP: "BRICK", ESFP: "METEORITE"
 }
 let rock = rockTypes[result]
 let rockColors1 = {				/* determine inner card color*/
@@ -555,7 +555,7 @@ rockText5
 for(let i = 0; i < 4; i++){                         // --- NEW
     let block = document.createElement("div")        // --- NEW
     block.className = "results-bottom-block"        // --- NEW
-    block.innerText = detailTexts[i]   // <-- THIS is the key line
+    block.innerText = detailTexts[i]   
     bottomContainer.appendChild(block)              // --- NEW
 }
 
