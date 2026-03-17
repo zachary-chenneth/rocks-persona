@@ -1,0 +1,562 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>RocksPersona</title>
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;700&display=swap" rel="stylesheet">
+
+<style>
+/* ----------------------------- */
+/* BASICS 		         */
+/* ----------------------------- */
+body{
+font-family: 'Nunito', sans-serif;
+text-align:center;
+padding:30px;
+background: #ffc69d;
+
+display: flex;                 /* Center the card horizontally and vertically */
+justify-content: center;       
+align-items: center;           
+height: 100vh;                 /* Full screen height so card is vertically centered */
+margin: 0;                     /* Remove default margin */
+}
+
+
+/* ----------------------------- */
+/* CARD STYLE		         */
+/* ----------------------------- */
+.card{
+    background: linear-gradient(
+    135deg,
+    #cfcfcf,
+    #f5f5f5,
+    #b5b5b5,
+    #ffffff,
+    #a8a8a8
+    );
+    width: 90vh;      /* consistent card width */
+    height: 85vh;      /* 85% of screen height */
+    max-width:500px;
+    padding: 15px;
+    border-radius: 15px;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.3);
+    display: flex;
+    flex-direction: column;
+    text-align:center;
+}
+.inner-card{
+    background:#f3e0c6;
+    height:100%;
+    width:100%;
+    padding: 2% 3%;
+    display:flex;
+    flex-direction:column;
+    gap:0px;
+    box-sizing:border-box;      /* prevents border from resizing layout */
+}
+
+
+/* ----------------------------- */
+/* QUESTION #		         */
+/* ----------------------------- */
+#question-number{
+    font-weight:700;
+    font-size:20px;
+    margin-top:0px;
+    margin-bottom:0px;
+    text-align:left;
+    width:100%;
+    padding-left:2%
+}
+
+/* ----------------------------- */
+/* IMAGE		         */
+/* ----------------------------- */
+#question-image{
+    width:100%;
+    height:40%;
+    object-fit:cover;
+    display:block;
+    margin-bottom:0px;
+}
+
+/* ----------------------------- */
+/* TEXT			         */
+/* ----------------------------- */
+#text-box {
+    background: #fdf5e6;      /* very light beige, slightly lighter than inner card */
+    padding: 1%;
+    display: flex;
+    flex-direction: column;
+    gap: 1%;
+    margin-top:0;
+    margin-bottom: 5%;
+    flex-grow: 1;
+}
+#question{
+    font-weight:700;
+    font-size:20px;
+    margin-top: 5%;
+    margin-bottom: 5%;
+    margin-left: 5%;
+    margin-right: 5%;
+}
+#answers{
+    display: flex;
+    flex-direction: column;
+    gap: 1%
+}
+
+button{
+    display:block;
+    width:80%;
+    max-width:500px;
+    margin:10px auto;
+    padding:3% 7%;
+    font-weight:600;
+    font-size:14px;
+    background:#fcbe74;
+    color:black;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    white-space: normal;      /* allow text to wrap */
+    word-wrap: break-word;    /* break long words if needed */
+}
+button:hover {
+    background: #824700;
+    color: white;
+}
+
+
+
+
+
+
+
+
+/* Top block */
+.results-top-block {
+    background: #fcbe74;
+    border-radius: 15px;
+    padding: 1%;
+    margin-top:3%;
+    margin-bottom: 3%;
+    font-weight: 700;
+    font-size: 18px;
+    text-align: center;
+    white-space: pre-wrap;
+    line-height:1.5;
+}
+/* Container for 6 blocks in 2 columns */
+.results-bottom-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr;  /* 2 columns */
+    grid-auto-rows: 1fr;             /* make each row take equal vertical space */
+    gap: 5%;
+    padding-left: 5%;
+    padding-right: 5%;
+    flex-shrink: 1;              
+    flex-grow: 1;  
+    min-height: 0;  
+}
+/* Individual bottom blocks */
+.results-bottom-block {
+    background: #fcbe74;
+    border-radius: 15px;
+    padding: 1%;
+    font-weight: 600;
+    font-size: 14px;
+    text-align: center;
+    margin-bottom:7%;
+    overflow: hidden;  
+    white-space: pre-wrap;
+    line-height: 1.5;
+}
+
+
+
+
+
+
+
+
+
+</style>
+</head>
+
+
+
+
+<!-- --------------------------BODY-------------------------- -->
+<body>
+<div class="card">
+
+<div class="inner-card">
+
+<div id="question-number"></div>
+
+
+
+<img id="question-image" src="" alt="Question Image">
+
+
+<div id="text-box">
+  <div id="question"></div>
+  <div id="answers"></div>
+</div>
+</div>
+</div>
+
+<!-- --------------------------SCRIPT-------------------------- -->
+<script>
+const questions = [
+
+{
+question: "Somewhere, in the distant past, a rock gains consciousness. It's you! You open your non-existent eyes, and think to yourself...",
+image:"Q1.gif",
+answers:[
+{ text:"Okay, where the heck am I", type:"J"},
+{ text:"I'm going back to sleep", type:"P"}
+]
+},
+
+{
+question: "You roll around and see a strange, white rock. They seem like the strong, silent type.",
+image:"Q2.gif",
+answers:[
+{ text:"Maybe we could be friends?", type:"E"},
+{ text:"Maybe I can ask them what's going on?", type:"I"}
+]
+},
+
+{
+question: "It starts to wiggle... then a crack forms on the surface!",
+image:"Q3.gif",
+answers:[
+{ text:"I didn't know rocks did that...", type:"S"},
+{ text:"I wonder what's going to come out?", type:"N"}
+]
+},
+
+{
+question: "What do you want to do with your new dino pal?",
+image:"Q4.gif",
+answers:[
+{ text:"Vibe in the nest", type:"I"},
+{ text:"See if you can find other types of dinosaurs", type:"E"}
+]
+},
+
+{
+question: "Suddenly, you hear a loud roar! Rumbling footsteps shake the ground beneath your non-existent feet.",
+image:"Q5.gif",
+answers:[
+{ text:"Woah, didn't mean to trouble you, ma'am!", type:"F"},
+{ text:"RUN!!!", type:"T"}
+]
+},
+
+{
+question: "The dino mom has you in her jaws!",
+image:"Q6.gif",
+answers:[
+{ text:"I don't taste good!", type:"S"},
+{ text:"Can we talk about this???", type:"N"}
+]
+},
+
+{
+question: "She tosses you away into a lake with a SPLASH! As you sink down into the water, your consciousness slowly drifts away...",
+image:"Q7.gif",
+answers:[
+{ text:"Dang this did NOT go according to plan.", type:"J"},
+{ text:"It might be fun to see what the bottom of a lake looks like.", type:"P"}
+]
+},
+
+{
+question: "You wake up MANY years later to the sound of drilling. There are shovels and tents set up everywhere.",
+image:"Q8.gif",
+answers:[
+{ text:"Roll around and see what's going on.", type:"P"},
+{ text:"Let's sit tight and observe the situation first.", type:"J"}
+]
+},
+
+{
+question: "You realize you're in the middle of an excavation site! You enter one of the tents to see what they're working on.",
+image:"Q9.gif",
+answers:[
+{ text:"Wow, so many rare fossils and high-tech lab equipment...", type:"S"},
+{ text:"How'd they know where to dig?", type:"N"}
+]
+},
+
+{
+question: "On your way back, the paper gang shows up! They look really weak!",
+image:"Q10.gif",
+answers:[
+{ text:"You know paper isn't actually stronger than rock, right?", type:"T"},
+{ text:"cry", type:"F"}
+]
+},
+
+{
+question: "Suddenly, a man picks you up. It looks like those papers were his research notes.",
+image:"Q11.gif",
+answers:[
+{ text:"Thanks for saving me!", type:"F"},
+{ text:"You didn't need to do that, I could handle it.", type:"T"}
+]
+},
+
+{
+question: "You get put on display in a museum, alongside ancient treasures from a lost civilization. A crowd of people are talking in excitement and taking pictures.",
+image:"Q12.gif",
+answers:[
+{ text:"It might be fun to hang out here for a while!", type:"E"},
+{ text:"*break the glass*", type:"I"}
+]
+},
+
+{
+question: "I see... so that's the type of rock you are!",
+image:"dark.png",
+answers:[
+{ text:"RESULTS!", type:"X"}
+]
+}
+
+]
+
+
+/* ----------------------------- */
+/* TRACK QUIZ STATE              */
+/* ----------------------------- */
+let currentQuestion = 0
+let scores = {
+I:0,
+E:0,
+N:0,
+S:0,
+T:0,
+F:0,
+J:0,
+P:0
+}
+
+
+/* ----------------------------- */
+/* DISPLAY QUESTION              */
+/* Updates the card with         */
+/* question text, image, answers */
+/* ----------------------------- */
+function showQuestion(){
+let q = questions[currentQuestion]
+document.getElementById("question-number").innerText = "Q" + (currentQuestion+1) + "/12"
+
+document.getElementById("question").innerText = q.question	/* Update question text */
+document.getElementById("question-image").src = q.image		/* Update image */
+let answersDiv = document.getElementById("answers")		/* Get answers container */
+answersDiv.innerHTML = ""					/* Clear previous buttons */
+q.answers.forEach(a=>{						/* Create a button for each answer */
+let btn = document.createElement("button")
+btn.innerText = a.text
+
+if(currentQuestion === 12) {
+qNumDiv = document.getElementById("question-number")
+qNumDiv.innerText = "???"
+qNumDiv.style.textAlign = "center"
+qNumDiv.style.fontSize = "32px"
+qNumDiv.style.fontWeight = "900"    
+qNumDiv.style.marginBottom = "2%"
+btn.style.fontSize = "20px"
+btn.style.fontWeight = "800"
+}
+
+btn.onclick = function(){
+scores[a.type]++		/* Add score for selected answer */
+currentQuestion++		/* Move to next question */
+if(currentQuestion >= questions.length){
+showResult()
+}else{
+showQuestion()
+}
+}
+
+answersDiv.appendChild(btn)
+})
+}
+
+
+/* ----------------------------- */
+/* SHOW FINAL RESULT             */
+/* ----------------------------- */
+function showResult(){
+let result = ""
+
+result += scores.I > scores.E ? "I" : "E"	/* calculate score*/
+result += scores.N > scores.S ? "N" : "S"
+result += scores.T > scores.F ? "T" : "F"
+result += scores.J > scores.P ? "J" : "P"
+
+let rockTypes = {				/* determine rock*/
+INTJ: "GEODE", INTP: "MOON ROCK", ENTJ: "METAL", ENTP: "GLASS",
+INFJ: "PEARL", INFP: "JADE", ENFJ: "GOLD", ENFP: "BOULDER",
+ISTJ: "OBSIDIAN", ISFJ: "CRYSTAL", ESTJ: "DIAMOND", ESFJ: "MARBLE",
+ISTP: "CLAY", ISFP: "LIMESTONE", ESTP: "CLAY", ESFP: "METEORITE"
+}
+let rock = rockTypes[result]
+let rockColors1 = {				/* determine inner card color*/
+INTJ: "#b6a081", INTP: "#ababab", ENTJ: "#ababab", ENTP: "#d1fbff",
+INFJ: "#8fcbff", INFP: "#79ed96", ENFJ: "#ffe57a", ENFP: "#a0b493",
+ISTJ: "#7b7b7b", ISFJ: "#ffccff", ESTJ: "#9de7ff", ESFJ: "#fafafa",
+ISTP: "#ff9275", ISFP: "#fffdad", ESTP: "#ffc982", ESFP: "#bda488"
+}
+let rockColor1 = rockColors1[result]
+let rockColors2 = {				/* determine textbox color*/
+INTJ: "#d589ff", INTP: "#e1e0e1", ENTJ: "#e1e0e1", ENTP: "#effeff",
+INFJ: "#c0e1ff", INFP: "#caffd7", ENFJ: "#feffc8", ENFP: "#e8ffd9",
+ISTJ: "#c3c3c3", ISFJ: "#ffeaff", ESTJ: "#dcf6ff", ESFJ: "#e4e4e4",
+ISTP: "#ffcabc", ISFP: "#fffee2", ESTP: "#ffeed8", ESFP: "#ece3d8"
+}
+let rockColor2 = rockColors2[result]
+
+let rockTexts1 = {
+INTJ: "lmao\nyou're wrong\nwhat the heck", 
+INTP: "dude im so busy\ni'll do it later\nbruh", 
+ENTJ: "i got this\ndon't be a wuss\nhave some confidence!", 
+ENTP: "HEY!\nyeah right\nim just being honest",
+INFJ: "i see\nhmmmm\n*nods head*", 
+INFP: "just relax\nyeah i slept 3 hours last night\nomg hahaha", 
+ENFJ: "let's invite everyone!\ni gotchu fam\ndon't worry about it!", 
+ENFP: "just be patient\noh yeah i'm down\nboom boom make some room",
+ISTJ: "im tired\nsuuuuure\ni don't wanna", 
+ISFJ: "wait that's so funny\nPUAHAHAHAHA\n*screams*", 
+ESTJ: "skill issue\ni can handle everything myself\nit's not that hard", 
+ESFJ: "you okay?\ni got your back homie\ni'm fine, i swear",
+ISTP: "LET'S F**KIN GOOOOOO\nhold on hold on hold on\ni'm booooored", 
+ISFP: "it's cool\ni'll think about it\ni'm outta here", 
+ESTP: "come on let's gooo\nAAAAAAAHHHH!!!\n*monologues for 1 hour*", 
+ESFP: "yeah baybeee\nomigosh\nlet's figure it out later"
+}
+let rockText1 = rockTexts1[result]
+let rockTexts2 = {
+INTJ: "STRENGTHS\nSecret genius\nPoker face\nGood ideas", 
+INTP: "STRENGTHS\nKnows everything\nGood advice\nChill", 
+ENTJ: "STRENGTHS\nStrong willpower\nOptimism\nLeadership", 
+ENTP: "STRENGTHS\nCan adapt to anything\nEnergetic\nSarcasm",
+INFJ: "STRENGTHS\nCalm\nZen\nDoesn't kick their friends", 
+INFP: "STRENGTHS\nPerfectionist\nInternet memes\nPacifism", 
+ENFJ: "STRENGTHS\nGood listener\nAttentive\nCares about others", 
+ENFP: "STRENGTHS\nUnintentionally funny\nWill listen to you\nComforting",
+ISTJ: "STRENGTHS\nC/C++\nPython\nGitHub", 
+ISFJ: "STRENGTHS\nKindness\nPositive energy\nEasygoing", 
+ESTJ: "STRENGTHS\nCompetent\nUsually right\nGood memory", 
+ESFJ: "STRENGTHS\nHelping others\nWill hype you up\nGood music taste",
+ISTP: "STRENGTHS\nBlending in\nLearning new things\nBoldness", 
+ISFP: "STRENGTHS\nPolite\nDoesn't cause problems\nQuirky", 
+ESTP: "STRENGTHS\nFast thinker\nMulti-tasking\nPowerful aura", 
+ESFP: "STRENGTHS\nProblem-solving\nHonesty\nDown for anything"
+}
+let rockText2 = rockTexts2[result]
+let rockTexts3 = {
+INTJ: "WEAKNESSES\nOrganization\nGetting ragebaited", 
+INTP: "WEAKNESSES\nImpatient\nListening\nShowing vulnerability", 
+ENTJ: "WEAKNESSES\nHarsh criticism\nPushy\nNo excuses", 
+ENTP: "WEAKNESSES\nWill bite you\nChaotic\nUnpredictable",
+INFJ: "WEAKNESSES\nGets work dumped on them\nMistakes\nToo much attention", 
+INFP: "WEAKNESSES\nPerfectionist\nBad sleep schedule\nWillpower", 
+ENFJ: "WEAKNESSES\nSad things\nGetting pranked\nBad at lying", 
+ENFP: "WEAKNESSES\nSaying no\nDoing too much\nGen Z slang",
+ISTJ: "WEAKNESSES\nEnergy\nCrowds\nOdor", 
+ISFJ: "WEAKNESSES\nDecisions\nScary things\nBeing trolled", 
+ESTJ: "WEAKNESSES\nSassy\nCutting corners\nNo filter", 
+ESFJ: "WEAKNESSES\nSelf-care\nWorrying\nSpicy food",
+ISTP: "WEAKNESSES\nManual labor\nSchedules\nBeing put on hold", 
+ISFP: "WEAKNESSES\nQuiet\nDoes whatever they want\nRemembering things", 
+ESTP: "WEAKNESSES\nPlanning\nKeeping secrets\nHyperactive", 
+ESFP: "WEAKNESSES\nCompliments\nBossy people\nLack of stimulation"
+}
+let rockText3 = rockTexts3[result]
+let rockTexts4 = {
+INTJ: "\n\nINTJ", INTP: "\n\nINTP", ENTJ: "\n\nENTJ", ENTP: "\n\nENTP",
+INFJ: "\n\nINFJ", INFP: "\n\nINFP", ENFJ: "\n\nENFJ", ENFP: "\n\nENFP",
+ISTJ: "\n\nISTJ", ISFJ: "\n\nISFJ", ESTJ: "\n\nESTJ", ESFJ: "\n\nESFJ",
+ISTP: "\n\nISTP", ISFP: "\n\nISFP", ESTP: "\n\nESTP", ESFP: "\n\nESFP"
+}
+let rockText4 = rockTexts4[result]
+let rockTexts5 = {
+INTJ: "MADE OF\n20% Awkwardness\n20% Panic\n60% Lovable", 
+INTP: "MADE OF\n50% Power\n50% Fame\n100% Reason to remember the name", 
+ENTJ: "MADE OF\n100% Enthusiasm\n100% Effort\n100% Menace", 
+ENTP: "MADE OF\n100% Unhinged",
+INFJ: "MADE OF\n70% Determination\n30%Planning", 
+INFP: "MADE OF\n20% Lazy\n5% Lost in thought\n3% Night owl", 
+ENFJ: "MADE OF\n40% Happy go lucky\n35%Affection\n25%Mischief", 
+ENFP: "MADE OF\n70% Got your back\n25% Wacky\n5% Mom energy",
+ISTJ: "MADE OF\n65% Work\n20% Thinking about work\n15% Preparation", 
+ISFJ: "MADE OF\n50% Yapping\n50% Compassion", 
+ESTJ: "MADE OF\n25% Achievements\n25% Confidence\n25%Dark secrets\n25% Showing off", 
+ESFJ: "MADE OF\n70% Reliable\n20% Worries\n10% Repressed",
+ISTP: "MADE OF\n50% Talk\n30% Thoughts\n20%Uncontrollable", 
+ISFP: "MADE OF\n33% Chill\n33%Creativity\n33%Lost in thought\n1% Weird", 
+ESTP: "MADE OF\n25% Delight\n25% Fright\n50% Keeps you up all night", 
+ESFP: "MADE OF\n50% Ideas\n40% Down\n9% Frown\n1% Clown"
+}
+let rockText5 = rockTexts5[result]
+
+//document.getElementById("question-number").innerText = rock
+qNumDiv = document.getElementById("question-number")
+qNumDiv.innerText = rock
+qNumDiv.style.textAlign = "center"
+qNumDiv.style.fontSize = "32px"
+qNumDiv.style.fontWeight = "900"    
+qNumDiv.style.marginBottom = "2%"
+
+document.getElementById("question").innerText = ""
+document.getElementById("question-image").src = rock + ".png"
+document.querySelector(".inner-card").style.background = rockColor1
+document.getElementById("text-box").style.background = rockColor2
+
+
+let textBox = document.getElementById("text-box")
+textBox.style.background = rockColor2
+textBox.innerHTML = ""  // clear old answers
+
+// 1 large top block
+let topBlock = document.createElement("div")           // --- NEW
+topBlock.className = "results-top-block"              // --- NEW
+topBlock.innerText = rockText1                // --- NEW
+textBox.appendChild(topBlock)                         // --- NEW
+
+// container for 6 bottom blocks (2 columns × 3 rows)
+let bottomContainer = document.createElement("div")   // --- NEW
+bottomContainer.className = "results-bottom-container" // --- NEW
+
+let detailTexts = [
+rockText2,
+rockText3,
+rockText4,
+rockText5
+]
+
+for(let i = 0; i < 4; i++){                         // --- NEW
+    let block = document.createElement("div")        // --- NEW
+    block.className = "results-bottom-block"        // --- NEW
+    block.innerText = detailTexts[i]   // <-- THIS is the key line
+    bottomContainer.appendChild(block)              // --- NEW
+}
+
+textBox.appendChild(bottomContainer)                // --- NEW
+
+document.getElementById("answers").innerHTML = ""
+}
+
+showQuestion()
+
+</script>
+</body>
+</html>
